@@ -259,7 +259,7 @@ public class CableReader
 			else if ( c == '=' )
 			{
 				index++;
-				mTokens.add(new CableToken("\"", CableToken.Type.Set));
+				mTokens.add(new CableToken("=", CableToken.Type.Set));
 			}
 			else if ( c == ';' )
 			{
