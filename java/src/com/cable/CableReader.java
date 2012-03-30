@@ -185,6 +185,7 @@ public class CableReader
 		}
 		catch ( IOException ex )
 		{
+			mError = ex.getMessage();
 			node = null;
 		}
 		return node;
