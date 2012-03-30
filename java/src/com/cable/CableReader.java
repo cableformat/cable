@@ -230,7 +230,7 @@ public class CableReader
 				else
 					mTokens.add(new CableToken(value, CableToken.Type.Word));
 			}
-			else if ( isn(c) || c == '.' )
+			else if ( isn(c) || c == '.' || c == '-' )
 			{
 				int b = index;
 				do {
