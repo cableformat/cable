@@ -164,7 +164,7 @@ class cable:
                     
                 elif c == '=':
                     index++
-                    self.tokens.append(CableToken('"', CableToken.Type.Set))
+                    self.tokens.append(CableToken('=', CableToken.Type.Set))
                     
                 elif c == ';':
                     index++
