@@ -39,9 +39,7 @@ class cable:
         def _createBool(newvalue):
             """ Factory for creating a variable with the specified boolean newvalue.
             """
-            var = CableValue()
-            var.value = newvalue
-            return var
+            return CableValue()
         
         def _createNumeric(newvalue):
             """Factory for creating a variable with the specified numeric newvalue.

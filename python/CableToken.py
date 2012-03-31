@@ -18,18 +18,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class cable:
 
-    class Token:
+    class CableToken:
         
         class Type:
-            Word = "Word"
-            String = "String"
-            Numeric = "Numeric"
-            true = "True"
-            false = "False"
-            Set = "Set"
-            End = "End"
-            Openbracket = "OpenBracket"
-            Closebracket = "CloseBracket"
+            """The token types
+            """
+            Word = 0
+            String = 1
+            Numeric = 2
+            true = 3
+            false = 4
+            Set = 5
+            End = 6
+            Openbracket = 7
+            Closebracket = 8
             
         def __init__(self, newvalue, newtokentype):
             self.value = newvalue

@@ -21,6 +21,8 @@ class cable:
     class CableReader:
     
         def _isws(char):
+            """Returns true if the specified character is a whitespace.
+            """
             if type(char) is not str:
                 return False
                 
@@ -34,6 +36,8 @@ class cable:
             return False
             
         def _islu(char):
+            """Returns true if the specified character is a letter or underscore.
+            """
             if type(char) is not str:
                 return False
                 
@@ -45,12 +49,20 @@ class cable:
                 return True
             return False
             
-        def _islun(char):
+        def _isn(char):
+            """Returns true if the specified character is a number.
+            """
             if char >= '0' and char <= '9'
                 return True
-            return islu(char)
+        
+        def _islun(char):
+            """Returns true if the specified character is a letter, underscore or number.
+            """
+            return _isn(char) or _islu(char)
             
-        def _removeEscapeChars(string)
+        def _convertFromEscapedString(string)
+            """Converts a string's escape character to their actual value.
+            """
             begin = 0
             index = 0
             length = len(string)
@@ -85,50 +97,55 @@ class cable:
         def __init__(self):
             self.source = ""
             self.tokens = []
-            self.cursor = 0
+            self.next = 0
             self.error = ""
             
-        def read(self, string):
+        def _read(self, string):
+            """Reads a Cable string and converts it into a tree of nodes.
+            """
             self.source = string
             self.tokens = []
             
             try:
-                tokenize()
-                reset()
-                return parse()
+                _tokenize()
+                _reset()
+                return _parse()
             except:
                 return None
                 
         def readFromFile(self, filename):
+            """Reads the Cable text from a file and converts it into a tree of nodes.
+            """
             try:
                 fin = open(filename, 'rb')
-                node = read(self, fin.read())
+                node = _read(self, fin.read())
                 fin.close()
             except:
                 node = None
-                
             return node
         
-        def tokenize(self):
+        def _tokenize(self):
+            """Converts the source text into an array of tokens.
+            """
             length = len(self.source)
             index = 0
             
             while index < length:
                 c = self.source[index]
                 
-                if isws(c):
+                if _isws(c):
                     index++
-                    while index < length and isws(self.source[index]):
+                    while index < length and _isws(self.source[index]):
                         index++
                 elif c == '#'
                     index++
                     while index < length and self.source[index] != '\n':
                         index++
                 
-                elif islu(c)
+                elif _islu(c)
                     b = index
                     index++
-                    while index < length and islun(self.source[index]:
+                    while index < length and _islun(self.source[index]:
                         index++
                     
                     value = self.source[b:index]
@@ -139,15 +156,15 @@ class cable:
                     else:
                         self.tokens.append(CableToken(value, CableToken.Type.Word))
                 
-                elif isn(c) or c == '.':
+                elif _isn(c) or c == '.' or c == '-':
                     b = index
                     index++
-                    while index < length and isn(self.source[index])
+                    while index < length and _isn(self.source[index]):
                         index++
                     
                     if index < length and self.source[index] == '.':
                         index++
-                        while index < length and isn(self.source[index]):
+                        while index < length and _isn(self.source[index]):
                             index++
                     self.tokens.append(CableToken(self.source[b:index]), CableToken.Type.Numeric)
                 
@@ -164,7 +181,7 @@ class cable:
                     
                 elif c == '=':
                     index++
-                    self.tokens.append(CableToken('=', CableToken.Type.Set))
+                    self.tokens.append(CableToken('"', CableToken.Type.Set))
                     
                 elif c == ';':
                     index++
@@ -184,60 +201,60 @@ class cable:
                     
             
         def parse(self):
-            if self.current.getType() != CableToken.Type.Word:
+            """Parses the array of tokens and builds the tree.
+            """
+            if self._current.getType() != CableToken.Type.Word:
                 pass
                 #throw CableException("invalid node identifier")
             
-            node = CableNode(self.current().getValue())
-            self.next()
+            node = CableNode(self._current().getValue())
+            self.next++
             
-            while self.current().getType() == CableToken.Type.Word:
-                name = self.current().getValue()
-                next()
+            while self._current().getType() == CableToken.Type.Word:
+                name = self._current().getValue()
+                self.next++
                 
-                currenttype = self.current().getType()
-                if currenttype == CableToken.Type.true:
+                _currenttype = self._current().getType()
+                if _currenttype == CableToken.Type.true:
                     node.value = True
                     
-                elif currenttype == CableToken.Type.false:
+                elif _currenttype == CableToken.Type.false:
                     node.value = False
                     
-                elif currenttype == CableToken.Type.String or currenttype == CableToken.Type.Numeric:
-                    node.value = self.current().getValue()
+                elif _currenttype == CableToken.Type.String or _currenttype == CableToken.Type.Numeric:
+                    node.value = self._current().getValue()
                 
                 else:
                     pass
                     #throw CableException("expecting bool, numeric, or string as property value")
                     
-            if(self.current().getType() == CableToken.Type.End):
-                self.next()
+            if(self._current().getType() == CableToken.Type.End):
+                self.next++
                 return node
                 
-            if(self.current().getType() == CableToken.Type.OpenBracket):
-                self.next()
-                while self.current.getType() != CableToken.Type.CloseBracket:
+            if(self._current().getType() == CableToken.Type.OpenBracket):
+                self.next++
+                while self._current.getType() != CableToken.Type.CloseBracket:
                     node.addChild(self.parse())
                 
-                self.next()
+                self.next++
                 
             return node
                 
             
-        def reset(self):
-            self.cursor = 0
+        def __reset(self):
+            """_resets the position of the next.
+            """
+            self.next = 0
         
-        def current(self):
-            if self.cursor >= len(self.tokens): #if done
+        def _current(self):
+            if self.next >= len(self.tokens): #if done
                 pass
                 #throw CableException("end not expected")
-            return self.tokens[self.cursor]
-        
-        def next(self):
-            self.cursor++
-        
+            return self.tokens[self.next]
 
         def _getError(self):
-            """Return error.
+            """Returns the error message.
             Interface compatibility from Java version of Cable.
             """"
             return self.error
