@@ -34,14 +34,10 @@ class CableNode:
     def insert(self, node):
         """Inserts the specified node above this one.
         """
-        if self.parent is not None and type(node) is CableNode:
+        if self.parent is not None:
             self.setChild(self.index, node)
             node.addChild(self)
     
-    def addChild(self, child):
-        """Adds a child to this node.
-        """
-        setChild(self, len(children)-1, child)
     
     def setChild(self, childIndex, child):
         """Sets the child node at the specified index.
@@ -53,6 +49,11 @@ class CableNode:
             child.setParent(self)
             child.index = childIndex
             self.children.append(child)
+            
+    def addChild(self, child):
+        """Adds a child to this node.
+        """
+        self.children.append(child)
 
     def _toDebugXml(self,indent):
         """Internal function used in exporting this node to xml.
@@ -75,7 +76,7 @@ class CableNode:
     def toDebugXml(self):
         """Exports the values in this node to xml.
         """
-        return toDebugXml(self, "")
+        return self._toDebugXml("")
 
     
     #kept for interface compatibility for other versions of the Cable implementation; 

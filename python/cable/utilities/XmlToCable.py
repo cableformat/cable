@@ -17,24 +17,89 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 XmlToCable.py
 v.0.1
-by Ketura
+by Ketura 31 March 2012
 
 This program is intended to be compiled as a command-line utility for converting 
 between XML format files and the C-like ABstraction Layout (Cable) format
 """ 
  
 import os
-import datetime
-import codecs
+import sys
 
 from xml.etree.ElementTree import parse, tostring
 from xml.etree.ElementTree import Element, SubElement, ElementTree
 
-from cable import *
+from cable import CableWriter, CableNode
 
 CABLE_VERSION = "1.0"
 CABLE_EXTENSION = ".cable"
 
 
- 
- 
+def _isws(string):
+    """Returns true if the specified character is a whitespace.
+    """
+    if string is None:
+        return True
+    if "".join(string.split()) != "":
+        return False
+    return True
+        
+def _doNodes(xml):
+    cablenode = CableNode.CableNode(xml.tag)
+    
+    for prop in xml.keys():
+        cablenode.values[prop] = xml.attrib[prop]
+
+    if _isws(xml.text) == False:
+        cablenode.values["__text_"] = xml.text    
+        
+        
+    for child in xml:
+        cablenode.addChild(_doNodes(child))
+       
+    return cablenode
+        
+def convertXmlFile(filename, newfilename=""):
+    
+    if not os.path.exists(filename):
+        return "XML file invalid!  Provide a valid XML file."
+        
+    xmlfile = parse(filename)
+    xmlroot = xmlfile.getroot()
+    
+    cablenode = _doNodes(xmlroot)
+    
+    if newfilename == "":
+        newfilename = filename + CABLE_EXTENSION
+#    print cablenode.toDebugXml()
+    
+    writer = CableWriter.CableWriter()
+    
+    writer.writeToFile(newfilename, cablenode)
+    
+    return "Successfully wrote CABLE structure to " + newfilename
+
+        
+if len(sys.argv) == 1:
+    print """
+    Usage of this program: 
+cable2xml xmlfilename cablefilename
+    where:
+        xmlfilename is the relative path to the XML file to be converted
+        cablefilename is the relative path of the CABLE file to be generated.
+
+Note that if cablefilename is not provided, output will be saved to
+xmlfilename.cable instead.
+
+Filenames with spaces should be escaped with quotations, e.g.:
+    cable2xml "monthly report.xml" "new report.cable"
+
+FILES WILL BE AUTOMATICALLY OVERWRITTEN.  MAKE SURE YOUR FILES ARE BACKED
+UP BEFORE PROCEEDING."""
+elif (len(sys.argv) > 2):
+    print convertXmlFile(sys.argv[1], sys.argv[2])
+
+else:
+    print convertXmlFile(sys.argv[1])
+
+

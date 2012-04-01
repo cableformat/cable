@@ -13,7 +13,9 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
- """
+"""
+import sys
+import codecs
 
 class CableWriter:
 
@@ -28,46 +30,39 @@ class CableWriter:
         return self.error
         
     def write(self, node):
-        """enerates the Cable text from the node.
+        """Generates the Cable text from the node.
         """
         self.string = ""
-        writeNode(node, "")
+        self.writeNode(node, "")
         return self.string
         
     def writeToFile(self, filename, node):
         """Generates the Cable text from the node and writes it to the specified file.
         """
-        fout = None
-        try:
-            fout = open(filename, 'w')
-            fout.write(self.write(node))
-        except:
-            return false
-            #self.error = ex.getMessage()
-        finally:
-            fout.close()
-        
-        return true
+        fout = codecs.open(filename, 'w', "utf-8-sig")
+        fout.write(self.write(node))
+        fout.close()
+
                 
     def writeNode(self, node, indent): 
         """The recursive function used in generating the Cable text.
         """   
-        self.string += indent + node.getName()
-        if node.hasProperties():
-            for entry in node.properties():
-                name = entry.getKey()
-                value = ""
-                if type(entry.getValue()) is str:
-                    value = '"' + entry.getValue() + '"'
-                else:
-                    value = entry.getValue()
-                    
+        
+        self.string += indent + node.name
+        for name in node.values:
+            if name == "__text_":
+                value = '"' + node.values[name] + '"'
+                self.string += ' ' + name + '=' + value
+                
+        for name in node.values:
+            if name != "__text_":
+                value = '"' + node.values[name] + '"'
                 self.string += ' ' + name + '=' + value
         
-        if node.hasChildren(): 
+        if len(node.children) > 0: 
             self.string += '\n' + indent + "{\n"
-            for child in node.children():
-                writeNode(child, indent + '\t')
+            for child in node.children:
+                self.writeNode(child, indent + '\t')
             self.string += indent + "}\n"
             
         else:
