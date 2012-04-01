@@ -29,7 +29,8 @@ import sys
 from xml.etree.ElementTree import parse, tostring
 from xml.etree.ElementTree import Element, SubElement, ElementTree
 
-from cable import CableWriter, CableNode
+from cable.CableWriter import CableWriter
+from cable.CableNode import CableNode
 
 CABLE_VERSION = "1.0"
 CABLE_EXTENSION = ".cable"
@@ -45,7 +46,7 @@ def _isws(string):
     return True
         
 def _doNodes(xml):
-    cablenode = CableNode.CableNode(xml.tag)
+    cablenode = CableNode(xml.tag)
     
     for prop in xml.keys():
         cablenode.values[prop] = xml.attrib[prop]
@@ -73,7 +74,7 @@ def convertXmlFile(filename, newfilename=""):
         newfilename = filename + CABLE_EXTENSION
 #    print cablenode.toDebugXml()
     
-    writer = CableWriter.CableWriter()
+    writer = CableWriter()
     
     writer.writeToFile(newfilename, cablenode)
     
