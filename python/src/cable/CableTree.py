@@ -1,5 +1,9 @@
-"""CableWriter - A utility used for generating Cable text from a tree of nodes
-Copyright (C) 2012 Mark Owen and Christian McCarty
+"""
+CableTree toolkit; to be used with the C-like ABstraction Layout
+(Cable) data format and made to closely imitate the native Python
+xml.ElementTree handling of the XML format.
+
+Copyright (C) 2012  Mark Owen and Christian McCarty
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,5 +18,24 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
- 
-__all__ = ["CableReader", "CableWriter"]
+
+
+__all__ = [
+    # public symbols
+    "Comment",
+    "dump",
+    "Node", "CableTree",
+    "fromstring",
+    "isnode", "iterparse",
+    "parse",
+    "SubNode",
+    "tostring",
+    "TreeBuilder",
+    "VERSION", 
+    "CableTreeBuilder",
+    ]
+    
+    
+VERSION = "1.0"
+
+import sys

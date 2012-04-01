@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 """
-CableWriter - Used for writing Cable text from the nodes
 Copyright (C) 2012  Mark Owen and Christian McCarty
 
 This program is free software: you can redistribute it and/or modify
@@ -94,7 +93,6 @@ cable2xml cablefilename [xmlfilename]
         cablefilename is the relative path of the CABLE file to be converted.
         xmlfilename is the relative path to the XML file to be generated
         
-
 Note that if xmlfilename is not provided, output will be saved to
 cablefilename.xml instead.
 

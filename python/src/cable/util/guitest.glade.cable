@@ -1,0 +1,319 @@
+﻿interface
+{
+	object class="GtkWindow" id="window1"
+	{
+		property __text_="False" name="can_focus";
+		property __text_="False" name="has_resize_grip";
+		child
+		{
+			object class="GtkPaned" id="paned1"
+			{
+				property __text_="True" name="visible";
+				property __text_="True" name="can_focus";
+				property __text_="vertical" name="orientation";
+				child
+				{
+					object class="GtkPaned" id="paned2"
+					{
+						property __text_="True" name="visible";
+						property __text_="True" name="can_focus";
+						child
+						{
+							object class="GtkLayout" id="layout2"
+							{
+								property __text_="True" name="visible";
+								property __text_="False" name="can_focus";
+								child
+								{
+									object class="GtkImage" id="image1"
+									{
+										property __text_="100" name="width_request";
+										property __text_="80" name="height_request";
+										property __text_="True" name="visible";
+										property __text_="False" name="can_focus";
+										property __text_="gtk-missing-image" name="stock";
+									}
+									packing
+									{
+										property __text_="120" name="x";
+										property __text_="174" name="y";
+									}
+								}
+							}
+							packing
+							{
+								property __text_="False" name="resize";
+								property __text_="True" name="shrink";
+							}
+						}
+						child
+						{
+							object class="GtkNotebook" id="notebook1"
+							{
+								property __text_="True" name="visible";
+								property __text_="True" name="can_focus";
+								child
+								{
+									object class="GtkLayout" id="layout3"
+									{
+										property __text_="True" name="visible";
+										property __text_="False" name="can_focus";
+										child
+										{
+											object class="GtkComboBox" id="combobox1"
+											{
+												property __text_="219" name="width_request";
+												property __text_="25" name="height_request";
+												property __text_="True" name="visible";
+												property __text_="False" name="can_focus";
+											}
+											packing
+											{
+												property __text_="92" name="x";
+												property __text_="19" name="y";
+											}
+										}
+										child
+										{
+											object class="GtkCheckButton" id="checkbutton1"
+											{
+												property __text_="checkbutton" name="label" translatable="yes";
+												property __text_="108" name="width_request";
+												property __text_="25" name="height_request";
+												property __text_="True" name="visible";
+												property __text_="True" name="can_focus";
+												property __text_="False" name="receives_default";
+												property __text_="False" name="use_action_appearance";
+												property __text_="0" name="xalign";
+												property __text_="True" name="draw_indicator";
+											}
+											packing
+											{
+												property __text_="17" name="x";
+												property __text_="70" name="y";
+											}
+										}
+									}
+								}
+								child type="tab"
+								{
+									object class="GtkLabel" id="label3"
+									{
+										property __text_="True" name="visible";
+										property __text_="False" name="can_focus";
+										property __text_="page 1" name="label" translatable="yes";
+									}
+									packing
+									{
+										property __text_="False" name="tab_fill";
+									}
+								}
+								child
+								{
+									placeholder;
+								}
+								child type="tab"
+								{
+									object class="GtkLabel" id="label4"
+									{
+										property __text_="True" name="visible";
+										property __text_="False" name="can_focus";
+										property __text_="page 2" name="label" translatable="yes";
+									}
+									packing
+									{
+										property __text_="1" name="position";
+										property __text_="False" name="tab_fill";
+									}
+								}
+								child
+								{
+									placeholder;
+								}
+								child type="tab"
+								{
+									object class="GtkLabel" id="label5"
+									{
+										property __text_="True" name="visible";
+										property __text_="False" name="can_focus";
+										property __text_="page 3" name="label" translatable="yes";
+									}
+									packing
+									{
+										property __text_="2" name="position";
+										property __text_="False" name="tab_fill";
+									}
+								}
+							}
+							packing
+							{
+								property __text_="True" name="resize";
+								property __text_="True" name="shrink";
+							}
+						}
+					}
+					packing
+					{
+						property __text_="False" name="resize";
+						property __text_="True" name="shrink";
+					}
+				}
+				child
+				{
+					object class="GtkLayout" id="layout1"
+					{
+						property __text_="True" name="visible";
+						property __text_="False" name="can_focus";
+						child
+						{
+							object class="GtkRadioButton" id="radiobutton1"
+							{
+								property __text_="radiobutton" name="label" translatable="yes";
+								property __text_="106" name="width_request";
+								property __text_="37" name="height_request";
+								property __text_="True" name="visible";
+								property __text_="True" name="can_focus";
+								property __text_="False" name="receives_default";
+								property __text_="False" name="use_action_appearance";
+								property __text_="0" name="xalign";
+								property __text_="True" name="active";
+								property __text_="True" name="draw_indicator";
+							}
+							packing
+							{
+								property __text_="7" name="x";
+								property __text_="29" name="y";
+							}
+						}
+						child
+						{
+							object class="GtkRadioButton" id="radiobutton2"
+							{
+								property __text_="radiobutton" name="label" translatable="yes";
+								property __text_="106" name="width_request";
+								property __text_="33" name="height_request";
+								property __text_="True" name="visible";
+								property __text_="True" name="can_focus";
+								property __text_="False" name="receives_default";
+								property __text_="False" name="use_action_appearance";
+								property __text_="0" name="xalign";
+								property __text_="True" name="active";
+								property __text_="True" name="draw_indicator";
+							}
+							packing
+							{
+								property __text_="7" name="x";
+								property __text_="71" name="y";
+							}
+						}
+						child
+						{
+							object class="GtkButton" id="button1"
+							{
+								property __text_="button" name="label" translatable="yes";
+								property __text_="100" name="width_request";
+								property __text_="34" name="height_request";
+								property __text_="True" name="visible";
+								property __text_="True" name="can_focus";
+								property __text_="True" name="receives_default";
+								property __text_="False" name="use_action_appearance";
+							}
+							packing
+							{
+								property __text_="193" name="x";
+								property __text_="22" name="y";
+							}
+						}
+						child
+						{
+							object class="GtkButton" id="button2"
+							{
+								property __text_="button" name="label" translatable="yes";
+								property __text_="100" name="width_request";
+								property __text_="36" name="height_request";
+								property __text_="True" name="visible";
+								property __text_="True" name="can_focus";
+								property __text_="True" name="receives_default";
+								property __text_="False" name="use_action_appearance";
+							}
+							packing
+							{
+								property __text_="194" name="x";
+								property __text_="69" name="y";
+							}
+						}
+						child
+						{
+							object class="GtkLabel" id="label1"
+							{
+								property __text_="100" name="width_request";
+								property __text_="32" name="height_request";
+								property __text_="True" name="visible";
+								property __text_="False" name="can_focus";
+								property __text_="label" name="label" translatable="yes";
+							}
+							packing
+							{
+								property __text_="328" name="x";
+								property __text_="24" name="y";
+							}
+						}
+						child
+						{
+							object class="GtkLabel" id="label2"
+							{
+								property __text_="100" name="width_request";
+								property __text_="31" name="height_request";
+								property __text_="True" name="visible";
+								property __text_="False" name="can_focus";
+								property __text_="label" name="label" translatable="yes";
+							}
+							packing
+							{
+								property __text_="333" name="x";
+								property __text_="69" name="y";
+							}
+						}
+						child
+						{
+							object class="GtkEntry" id="entry1"
+							{
+								property __text_="158" name="width_request";
+								property __text_="25" name="height_request";
+								property __text_="True" name="visible";
+								property __text_="True" name="can_focus";
+								property __text_="•" name="invisible_char";
+							}
+							packing
+							{
+								property __text_="444" name="x";
+								property __text_="30" name="y";
+							}
+						}
+						child
+						{
+							object class="GtkEntry" id="entry2"
+							{
+								property __text_="158" name="width_request";
+								property __text_="25" name="height_request";
+								property __text_="True" name="visible";
+								property __text_="True" name="can_focus";
+								property __text_="•" name="invisible_char";
+							}
+							packing
+							{
+								property __text_="448" name="x";
+								property __text_="71" name="y";
+							}
+						}
+					}
+					packing
+					{
+						property __text_="True" name="resize";
+						property __text_="True" name="shrink";
+					}
+				}
+			}
+		}
+	}
+}

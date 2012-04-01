@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 """
-CableWriter - Used for writing Cable text from the nodes
 Copyright (C) 2012  Mark Owen and Christian McCarty
 
 This program is free software: you can redistribute it and/or modify
@@ -54,7 +53,6 @@ def _doNodes(xml):
 
     if _isws(xml.text) == False:
         cablenode.values["__text_"] = xml.text    
-        
         
     for child in xml:
         cablenode.addChild(_doNodes(child))
