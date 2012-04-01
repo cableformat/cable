@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 CableWriter - Used for writing Cable text from the nodes
 Copyright (C) 2012  Mark Owen and Christian McCarty
@@ -27,7 +28,7 @@ import os
 import sys
 
 from xml.etree.ElementTree import parse, tostring
-from xml.etree.ElementTree import Element, SubElement, ElementTree
+from xml.etree.ElementTree import Element, SubElement, ElementTree, XMLParser
 
 from cable.CableWriter import CableWriter
 from cable.CableNode import CableNode
@@ -64,8 +65,8 @@ def convertXmlFile(filename, newfilename=""):
     
     if not os.path.exists(filename):
         return "XML file invalid!  Provide a valid XML file."
-        
-    xmlfile = parse(filename)
+    parser = XMLParser(encoding="utf-8")
+    xmlfile = parse(filename,parser=parser)
     xmlroot = xmlfile.getroot()
     
     cablenode = _doNodes(xmlroot)
@@ -75,7 +76,6 @@ def convertXmlFile(filename, newfilename=""):
 #    print cablenode.toDebugXml()
     
     writer = CableWriter()
-    
     writer.writeToFile(newfilename, cablenode)
     
     return "Successfully wrote CABLE structure to " + newfilename
@@ -84,7 +84,7 @@ def convertXmlFile(filename, newfilename=""):
 if len(sys.argv) == 1:
     print """
     Usage of this program: 
-cable2xml xmlfilename cablefilename
+xml2cable xmlfilename [cablefilename]
     where:
         xmlfilename is the relative path to the XML file to be converted
         cablefilename is the relative path of the CABLE file to be generated.
@@ -93,7 +93,7 @@ Note that if cablefilename is not provided, output will be saved to
 xmlfilename.cable instead.
 
 Filenames with spaces should be escaped with quotations, e.g.:
-    cable2xml "monthly report.xml" "new report.cable"
+    xml2cable "monthly report.xml" "new report.cable"
 
 FILES WILL BE AUTOMATICALLY OVERWRITTEN.  MAKE SURE YOUR FILES ARE BACKED
 UP BEFORE PROCEEDING."""

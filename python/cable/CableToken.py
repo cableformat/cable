@@ -29,8 +29,8 @@ class CableToken:
         false = 4
         Set = 5
         End = 6
-        Openbracket = 7
-        Closebracket = 8
+        OpenBracket = 7
+        CloseBracket = 8
         TokenNames=["Word","String","Numeric","True","False","Set","End","OpenBracket","CloseBracket"]
         
     def __init__(self, newvalue, newtokentype):

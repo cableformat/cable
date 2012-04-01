@@ -25,7 +25,7 @@ class CableNode:
     def __init__(self, newname):
         """Initialize the node based on the specified name.
         """
-        self.name = str(newname)
+        self.name = unicode(newname)
         self.parent = None
         self.index = -1
         self.values = {}
