@@ -1,0 +1,37 @@
+control id="" 
+		left=0
+		right=0
+		top=0
+		bottom=0
+		leftanchor=""
+		rightanchor="" 
+		topanchor=""
+		bottomanchor="" 
+		width=0
+		height=0
+		text=""
+		textwidth=0
+		textheight=0
+		scrollable=false;
+{
+	panel minwidth=0
+		  minheight=0
+		  maxwidth=0
+		  maxheight=0;
+	{
+		splitpanel;
+		tabpanel;
+	}
+
+	label hyperlink=false url="" font="" fontsize=0 ;
+	textbox filter="";
+	button src="";
+	image src="";
+	menu;
+	menuitem;
+	combobox;
+	checkbox;
+	radiobox;
+	scrollbar;
+	progressbar;
+}
