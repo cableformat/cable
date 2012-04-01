@@ -8,5 +8,5 @@ setup(name="Cable",
       author="Christian McCarty and Mark Owen",
       author_email="hyperlink.teltura@gmail.com",
       url="https://github.com/cableformat/cable",
-      packages=['Cable']
+      packages=['cable']
       )
