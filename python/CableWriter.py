@@ -25,14 +25,21 @@ class cable:
             self.string = ""
             
         def _getError():
+            """Returns the error message.
+            Interface compatibility from Java version of Cable.
+            """
             return self.error
             
         def write(self, node):
+            """enerates the Cable text from the node.
+            """
             self.string = ""
             writeNode(node, "")
             return self.string
             
         def writeToFile(self, filename, node):
+            """Generates the Cable text from the node and writes it to the specified file.
+            """
             fout = None
             try:
                 fout = open(filename, 'w')
@@ -45,7 +52,9 @@ class cable:
             
             return true
                     
-        def writeNode(self, node, indent):    
+        def writeNode(self, node, indent): 
+            """The recursive function used in generating the Cable text.
+            """   
             self.string += indent + node.getName()
             if node.hasProperties():
                 for entry in node.properties():
@@ -66,21 +75,4 @@ class cable:
                 
             else:
                 self.string += ";\n"
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
         

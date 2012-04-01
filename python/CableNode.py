@@ -29,10 +29,7 @@ class cable:
         def __init__(self, newname):
             """Initialize the node based on the specified name.
 	        """
-            if type(newname) is str:
-                self.name = newname
-            else:
-                self.name = ""
+            self.name = str(newname)
             self.parent = None
             self.index = -1
             self.values = {}
@@ -117,8 +114,8 @@ class cable:
             """
             if key in self.values:
                 return True
-            
-            return False
+            else:
+                return False
         
         def _set(self, key, value):
             """

@@ -21,7 +21,8 @@ class cable:
     class CableToken:
         
         class Type:
-            """The token types
+            """The token types and names in a psuedo-enum setup.  Note that all tokens are capitalized
+            except "true" and "false" to avoid name conflicts.
             """
             Word = 0
             String = 1
@@ -32,19 +33,28 @@ class cable:
             End = 6
             Openbracket = 7
             Closebracket = 8
+            TokenNames=["Word","String","Numeric","True","False","Set","End","OpenBracket","CloseBracket"]
             
         def __init__(self, newvalue, newtokentype):
             self.value = newvalue
             self.tokentype = newtokentype
             
         def toString(self):
-            return self.tokentype + ":" + self.value
+            """A String representation of the Type and Value of this Token
+            """
+            return Type.TokenNames[self.tokentype] + ":" + self.value
             
         
-        def getType(self):
+        def _getType(self):
             """Returns the type of the Token.
             Interface compatibility from Java version of Cable.
             """
             return self.tokentype
+        
+        def _getValue(self):
+            """Return the value of the Token.
+            Interface compatibility from Java version of Cable.
+            """
+            return self.value
         
 

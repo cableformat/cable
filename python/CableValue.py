@@ -28,87 +28,112 @@ class cable:
         business as usual.
         """
         class _Type:
-            Bool = type(True)
-            Numeric = type(1.0)
-            String = type("")
+            Bool = bool
+            Numeric = float
+            String = unicode
             
    
-        __init__(self):
-            self.value = 0.0
-        
         def _createBool(newvalue):
             """ Factory for creating a variable with the specified boolean newvalue.
+            Interface compatibility from Java version of Cable.
             """
-            return CableValue()
+            return CableValue(bool(newvalue))
         
         def _createNumeric(newvalue):
             """Factory for creating a variable with the specified numeric newvalue.
+            Interface compatibility from Java version of Cable.
             """
-            var = CableValue()
-            var.value = newvalue
-            return var
-        
+            return CableValue(float(newvalue))
+
         def _createString(newvalue):
             """Factory for creating a variable with the specified String newvalue.
+            Interface compatibility from Java version of Cable.
             """
-            var = CableValue()
-            var.value = newvalue
-            return var
-        
+            return CableValue(str(newvalue))
+            
+        def __init__(self, newvalue=0.0):
+            self.value = newvalue
+            
         def _toString(self):
+            """A String representation of the Type and Value of this object
+            """
             return type(self.value) + ':' + self.value
         
         def _getType(self):
             """Returns the type of this variable.
+            Interface compatibility from Java version of Cable.
             """
             return type(self.value)
+            
+        def _isBool(self):
+            """Returns true if the value of this is of type bool.
+            Interface compatibility from Java version of Cable.
+            """
+            return isinstance(self.value, bool)
+            
+        def _isNumeric(self):
+            """Returns true if the value of this is of type numeric.
+            Interface compatibility from Java version of Cable.
+            """
+            try:
+                float(self.value)
+                return True
+            except:
+                return false
+                
+        def _isString(self):
+            """Returns true if the value of this is of type string.
+            Interface compatibility from Java version of Cable.
+            """
+            return isinstance(self.value, basestring)
         
         def _set(self, newvalue):
-            self.value = newvalue
+            """Sets the internal value either by copying another CableValue's data
+            or by setting according to passed value.
+            """
+            try:
+                self.value = newvalue.value
+            except:
+                self.value = newvalue
         
         def _setString(self, newvalue):
             """Sets this variable with the specified String value.
+            Interface compatibility from Java version of Cable.
             """
-            self.value = newvalue
+            self.value = str(newvalue)
         
         def _setNumeric(self, newvalue):
             """Sets this variable with the specified numeric value.
+            Interface compatibility from Java version of Cable.
             """
-            self.value = newvalue
+            self.value = float(newvalue)
         
         def _setBool(self, newvalue):
             """Sets this variable with the specified boolean newvalue.
+            Interface compatibility from Java version of Cable.
             """
-            self.value = newvalue
-            
+            self.value = bool(newvalue)
         
         def _asString(self):
-            return self.value
+            """Returns this value as a string.
+            Interface compatibility from Java version of Cable.
+            """
+            return unicode(self.value)
         
         def _asNumeric(self):
+            """Returns this value as a numeric.
+            Interface compatibility from Java version of Cable.
+            """
             try:
-                if type(self.value) == _Type.Numeric:
-                    return self.value
-                elif type(self.value) == _Type.Bool:
-                    if self.value is True:
-                        return 1.0
-                    else:
-                        return 0.0
-                elif type(self.value) == _Type.String:
-                    return float(self.value)
-                
-            except ValueError:
+                return float(self.value)
+            except:
                 return 0.0
-        
+
         def _asBool(self):
-            if type(self.value) == _Type.Numeric:
-                return self.value > 0
-                
-            elif type(self.value) == _Type.Bool:
-                return self.value
-                
-            elif type(self.value) == _Type.String:
-                return len(self.value) > 0
+            """Returns this value as a boolean.
+            Interface compatibility from Java version of Cable.
+            """
+            return bool(self.value)
                 
 
         

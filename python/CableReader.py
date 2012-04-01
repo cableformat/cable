@@ -23,9 +23,6 @@ class cable:
         def _isws(char):
             """Returns true if the specified character is a whitespace.
             """
-            if type(char) is not str:
-                return False
-                
             if char == ' ':
                 return True
             if char == '\t':
@@ -38,9 +35,6 @@ class cable:
         def _islu(char):
             """Returns true if the specified character is a letter or underscore.
             """
-            if type(char) is not str:
-                return False
-                
             if char >= 'a' and char <= 'z'
                 return True
             if char >= 'A' and char <= 'Z'
@@ -114,7 +108,8 @@ class cable:
                 return None
                 
         def readFromFile(self, filename):
-            """Reads the Cable text from a file and converts it into a tree of nodes.
+            """Publically-facing function to read the Cable text from a file and convert it
+            into a tree of nodes.
             """
             try:
                 fin = open(filename, 'rb')
@@ -150,9 +145,9 @@ class cable:
                     
                     value = self.source[b:index]
                     if value == "true":
-                        self.tokens.append(CableToken("true", CableToken.Type.True))
+                        self.tokens.append(CableToken("true", CableToken.Type.true))
                     elif value == "false":
-                        self.tokens.append(CableToken("false", CableToken.Type.False))
+                        self.tokens.append(CableToken("false", CableToken.Type.false))
                     else:
                         self.tokens.append(CableToken(value, CableToken.Type.Word))
                 
