@@ -30,7 +30,7 @@ import codecs
 from xml.etree.ElementTree import parse, tostring
 from xml.etree.ElementTree import Element, SubElement, ElementTree
 
-from Cable import 
+from cable import *
 
 CABLE_VERSION = "1.0"
 CABLE_EXTENSION = ".cable"

@@ -67,7 +67,7 @@ class CableWriter:
         if node.hasChildren(): 
             self.string += '\n' + indent + "{\n"
             for child in node.children():
-                writeNode(child, indent + '\t'
+                writeNode(child, indent + '\t')
             self.string += indent + "}\n"
             
         else:

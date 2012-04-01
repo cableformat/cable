@@ -33,18 +33,18 @@ class CableReader:
     def _islu(char):
         """Returns true if the specified character is a letter or underscore.
         """
-        if char >= 'a' and char <= 'z'
+        if char >= 'a' and char <= 'z':
             return True
-        if char >= 'A' and char <= 'Z'
+        if char >= 'A' and char <= 'Z':
             return True
-        if char == '_'
+        if char == '_':
             return True
         return False
         
     def _isn(char):
         """Returns true if the specified character is a number.
         """
-        if char >= '0' and char <= '9'
+        if char >= '0' and char <= '9':
             return True
     
     def _islun(char):
@@ -52,7 +52,7 @@ class CableReader:
         """
         return _isn(char) or _islu(char)
         
-    def _convertFromEscapedString(string)
+    def _convertFromEscapedString(string):
         """Converts a string's escape character to their actual value.
         """
         begin = 0
@@ -63,7 +63,7 @@ class CableReader:
         while index < length:
             if string[index] == '\\':
                 out += string[begin:index]
-                index++
+                index+= 1
                 
                 if string[index] == '\\':
                     out += '\\'
@@ -76,10 +76,10 @@ class CableReader:
                 elif string[index] == '\r':
                     out += '\r'
                     
-                index++
+                index+= 1
                 begin = index
             else:
-                index++
+                index+= 1
         
         out += string[begin:index]
         
@@ -127,19 +127,19 @@ class CableReader:
             c = self.source[index]
             
             if _isws(c):
-                index++
+                index+= 1
                 while index < length and _isws(self.source[index]):
-                    index++
-            elif c == '#'
-                index++
+                    index+= 1
+            elif c == '#':
+                index+= 1
                 while index < length and self.source[index] != '\n':
-                    index++
+                    index+= 1
             
-            elif _islu(c)
+            elif _islu(c):
                 b = index
-                index++
-                while index < length and _islun(self.source[index]:
-                    index++
+                index+= 1
+                while index < length and _islun(self.source[index]):
+                    index+= 1
                 
                 value = self.source[b:index]
                 if value == "true":
@@ -151,41 +151,41 @@ class CableReader:
             
             elif _isn(c) or c == '.' or c == '-':
                 b = index
-                index++
+                index+= 1
                 while index < length and _isn(self.source[index]):
-                    index++
+                    index+= 1
                 
                 if index < length and self.source[index] == '.':
-                    index++
+                    index+= 1
                     while index < length and _isn(self.source[index]):
-                        index++
+                        index+= 1
                 self.tokens.append(CableToken(self.source[b:index]), CableToken.Type.Numeric)
             
             elif c == '"':
                 b = index
-                index++
-                while index < length and !(self.source[index] == '"' and self.source[index-1] != '\\'):
-                    index++
+                index+= 1
+                while index < length and not (self.source[index] == '"' and self.source[index-1] != '\\'):
+                    index+= 1
                 if index >= length:
                     pass
                     #new exception 'closing " not found'
-                index++
+                index+= 1
                 self.tokens.append(CableToken(convertFromEscapedString(self.source[b+1, index-1]), CableToken.Type.String))
                 
             elif c == '=':
-                index++
+                index+= 1
                 self.tokens.append(CableToken('"', CableToken.Type.Set))
                 
             elif c == ';':
-                index++
+                index+= 1
                 self.tokens.append(CableToken(';', CableToken.Type.End))
             
             elif c == '{':
-                index++
+                index+= 1
                 self.tokens.append(CableToken('{', CableToken.Type.OpenBracket))
             
             elif c == '}':
-                index++
+                index+= 1
                 self.tokens.append(CableToken('{', CableToken.Type.CloseBracket))
             
             else:
@@ -201,11 +201,11 @@ class CableReader:
             #throw CableException("invalid node identifier")
         
         node = CableNode(self._current().getValue())
-        self.next++
+        self.next+= 1
         
         while self._current().getType() == CableToken.Type.Word:
             name = self._current().getValue()
-            self.next++
+            self.next+= 1
             
             _currenttype = self._current().getType()
             if _currenttype == CableToken.Type.true:
@@ -222,15 +222,15 @@ class CableReader:
                 #throw CableException("expecting bool, numeric, or string as property value")
                 
         if(self._current().getType() == CableToken.Type.End):
-            self.next++
+            self.next+= 1
             return node
             
         if(self._current().getType() == CableToken.Type.OpenBracket):
-            self.next++
+            self.next+= 1
             while self._current.getType() != CableToken.Type.CloseBracket:
                 node.addChild(self.parse())
             
-            self.next++
+            self.next+= 1
             
         return node
             
@@ -249,7 +249,7 @@ class CableReader:
     def _getError(self):
         """Returns the error message.
         Interface compatibility from Java version of Cable.
-        """"
+        """
         return self.error
         
         
