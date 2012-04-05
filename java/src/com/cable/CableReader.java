@@ -298,6 +298,8 @@ public class CableReader
 		while ( current().getType() == CableToken.Type.Word )
 		{
 			String name = current().getValue();
+			if ( node.isSet(name) )
+				throw new CableException("duplicate property name '" + name + "'");
 			next();
 			if ( current().getType() != CableToken.Type.Set )
 				throw new CableException("expecting = after property identifier");
