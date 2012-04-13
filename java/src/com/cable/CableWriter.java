@@ -38,15 +38,6 @@ public class CableWriter
 	}
 
 	/**
-	 * Returns the error message.
-	 * @return The error message
-	 */
-	public String getError()
-	{
-		return mError;
-	}
-	
-	/**
 	 * Generates the Cable text from the node.
 	 * @param node The root of the tree
 	 * @return The Cable text
@@ -57,14 +48,13 @@ public class CableWriter
 		writeNode(node, "");
 		return mWriter.toString();
 	}
-	
+
 	/**
 	 * Generates the Cable text from the node and writes it to the specified file.
 	 * @param filename The name of the file
 	 * @param node The root of the node
-	 * @return True if the write was a success, false otherwise
 	 */
-	public boolean writeToFile(String filename, CableNode node)
+	public void writeToFile(String filename, CableNode node) throws CableException
 	{
 		try
 		{
@@ -74,11 +64,8 @@ public class CableWriter
 		}
 		catch ( IOException ex )
 		{
-			mError = ex.getMessage();
-			return false;
+			throw new CableException(ex.getMessage());
 		}
-		
-		return true;
 	}
 	
 	/**
@@ -119,9 +106,4 @@ public class CableWriter
 	 * The StringWriter used in generating the Cable text
 	 */
 	private StringWriter mWriter;
-	
-	/**
-	 * The error message
-	 */
-	private String mError;
 }

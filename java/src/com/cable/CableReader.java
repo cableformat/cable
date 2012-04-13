@@ -134,61 +134,43 @@ public class CableReader
 	public CableReader()
 	{
 	}
-	
-	/**
-	 * Returns the error message.
-	 * @return The error message
-	 */
-	public String getError()
-	{
-		return mError;
-	}
-	
+
 	/**
 	 * Reads a Cable string and converts it into a tree of nodes.
 	 * @param source The Cable string that needs to be converted
 	 * @return The root of the tree
 	 */
-	public CableNode read(String source)
+	public CableNode read(String source) throws CableException
 	{
 		mSource = source;
 		mTokens = new ArrayList<CableToken>();
 		
-		try
-		{
-			tokenize();
-			reset();
-			return parse();
-		}
-		catch ( CableException ex )
-		{
-			mError = ex.getMessage();
-			return null;
-		}
+		tokenize();
+		reset();
+		return parse();
 	}
-	
+
 	/**
 	 * Reads the Cable text from a file and converts it into a tree of nodes.
 	 * @param filename The name of the file
 	 * @return The root of the tree
 	 */
-	public CableNode readFromFile(String filename)
+	public CableNode readFromFile(String filename) throws CableException
 	{
-		CableNode node;
 		try
 		{
 			FileInputStream fin = new FileInputStream(filename);
 			byte[] data = new byte[fin.available()];
 			fin.read(data);
-			node = read(new String(data));
+			CableNode node = read(new String(data));
 			fin.close();
+			
+			return node;
 		}
 		catch ( IOException ex )
 		{
-			mError = ex.getMessage();
-			node = null;
+			throw new CableException(ex.getMessage());
 		}
-		return node;
 	}
 
 	/**
@@ -387,9 +369,4 @@ public class CableReader
 	 * The index of the cursor
 	 */
 	private int mCursor;
-	
-	/**
-	 * The error message
-	 */
-	private String mError;
 }
