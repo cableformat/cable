@@ -34,7 +34,7 @@ public class CableReader
 	 * @param ch The character to test
 	 * @return True if test passes
 	 */
-	private static boolean isws(char ch)
+	private static boolean isWhiteSpace(char ch)
 	{
 		if ( ch == ' ' )
 			return true;
@@ -50,7 +50,7 @@ public class CableReader
 	 * @param ch The character to test
 	 * @return True if test passes
 	 */
-	private static boolean islu(char ch)
+	private static boolean isLetterOrUnderscore(char ch)
 	{
 		if ( ch >= 'a' && ch <= 'z' )
 			return true;
@@ -66,7 +66,7 @@ public class CableReader
 	 * @param ch The character to test
 	 * @return True if test passes
 	 */
-	private static boolean islun(char ch)
+	private static boolean isLetterNumberOrUnderscore(char ch)
 	{
 		if ( ch >= 'a' && ch <= 'z' )
 			return true;
@@ -84,7 +84,7 @@ public class CableReader
 	 * @param ch The character to test
 	 * @return True if test passes
 	 */
-	private static boolean isn(char ch)
+	private static boolean isNumber(char ch)
 	{
 		if ( ch >= '0' && ch <= '9' )
 			return true;
@@ -185,11 +185,11 @@ public class CableReader
 		{
 			char c = mSource.charAt(index);
 
-			if ( isws(c) )
+			if ( isWhiteSpace(c) )
 			{
 				do {
 					index++;
-				} while ( index < length && isws(mSource.charAt(index)) );
+				} while ( index < length && isWhiteSpace(mSource.charAt(index)) );
 			}
 			else if ( c == '#' )
 			{
@@ -197,12 +197,12 @@ public class CableReader
 					index++;
 				} while ( index < length && mSource.charAt(index) != '\n' );
 			}
-			else if ( islu(c) )
+			else if ( isLetterOrUnderscore(c) )
 			{
 				int b = index;
 				do {
 					index++;
-				} while ( index < length && islun(mSource.charAt(index)) );
+				} while ( index < length && isLetterNumberOrUnderscore(mSource.charAt(index)) );
 				
 				String value = mSource.substring(b, index);
 				if ( value.equals("true") )
@@ -212,17 +212,17 @@ public class CableReader
 				else
 					mTokens.add(new CableToken(value, CableToken.Type.Word));
 			}
-			else if ( isn(c) || c == '.' || c == '-' )
+			else if ( isNumber(c) || c == '.' || c == '-' )
 			{
 				int b = index;
 				do {
 					index++;
-				} while ( index < length && isn(mSource.charAt(index)) );
+				} while ( index < length && isNumber(mSource.charAt(index)) );
 				if ( index < length && mSource.charAt(index) == '.' )
 				{
 					do {
 						index++;
-					} while ( index < length && isn(mSource.charAt(index)) );					
+					} while ( index < length && isNumber(mSource.charAt(index)) );					
 				}
 				
 				mTokens.add(new CableToken(mSource.substring(b, index), CableToken.Type.Numeric));
